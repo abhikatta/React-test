@@ -1,0 +1,38 @@
+div {
+    text-align: center;
+}
+
+* {
+    color: cyan;
+    background-color: rgb(63, 72, 86);
+    ;
+    font-family: "Montserrat";
+}
+
+/* button {
+    background-color: black;
+    margin: 1em 1em;
+    transition-duration: 0.4s;
+    border-radius: 0.4em;
+    box-shadow: 2px 1px 10px;
+} */
+
+.buttons {
+    background-color: black;
+    border-color: teal;
+    color: rgb(19, 36, 54, );
+    margin: 1em 1em;
+    transition-duration: 0.4s;
+    border-radius: 0.4em;
+    box-shadow: 2px 1px 10px;
+}
+
+.buttons:hover {
+    background-color: rgb(140, 201, 239);
+    color: black;
+}
+
+#guess {
+    text-align: center;
+    cursor: none;
+}
