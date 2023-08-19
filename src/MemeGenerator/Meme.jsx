@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+import "./meme.css";
 function Meme() {
   useEffect(() => {
     fetch("https://api.imgflip.com/get_memes")
@@ -29,10 +29,13 @@ function Meme() {
     }));
   }
   return (
-    <div name="meme_generator" className="w-full h-screen max-h-screen">
-      <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#5c687b]">
+    <div
+      name="meme_generator"
+      className="flex flex-col justify-center items-center max-h-full min-h-screen w-full bg-[#5c687b]">
+      <div className=" mt-[15%]  flex flex-row text-black justify-center items-center w-full h-28">
         <input
           type="text"
+          className="bg-[#375295] mr-5 px-2 py-1 text-white shadow-md shadow-[#435324] border-[#375295]"
           name="topText"
           onChange={handleTextChange}
           placeholder="Top Text"
@@ -41,20 +44,27 @@ function Meme() {
         <input
           type="text"
           name="bottomText"
+          className="bg-[#375295] ml-5 px-2 py-1 shadow-md shadow-[#435324] text-white border-[#375295]"
           onChange={handleTextChange}
           placeholder="Bottom Text"
           value={meme.bottomText}
         />
-        <button onClick={getMeme}>Get Meme</button>
-        <div className="flex flex-col justify-center items-center">
-          <img
-            className="max-w-[90%] rounded-md"
-            src={meme.randomImage}
-            alt="Click The Button above to get a meme "
-          />
-          <div className="meme--text top-0">{meme.topText}</div>
-          <div className="meme--text bottom-0">{meme.bottomText}</div>
-        </div>
+      </div>
+      <div>
+        <button
+          className="bg-[black] transition-colors duration-300 shadow-md shadow-current hover:bg-[#8cc9ef]  border-[teal] px-2 py-1 rounded-md border-2 text-[cyan] hover:text-[#132436] font-semibold"
+          onClick={getMeme}>
+          Get Meme
+        </button>
+      </div>
+      <div className="flex flex-col mt-5 justify-center items-center  max-w-lg ">
+        <h2 className="meme--text relative top-20 ">{meme.topText}</h2>
+        <img
+          className=" rounded-md max-w-lg:"
+          src={meme.randomImage}
+          alt="Click The Button above to get a meme "
+        />
+        <h2 className="meme--text relative bottom-28">{meme.bottomText}</h2>
       </div>
     </div>
   );
