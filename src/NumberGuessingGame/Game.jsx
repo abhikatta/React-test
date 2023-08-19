@@ -24,8 +24,8 @@ const NUmberGuessingGame = () => {
     <div
       name="number_guessing_game"
       className="flex flex-col min-h-screen h-screen max-h-screen w-screen">
-      <div className=" flex flex-col items-center t-3 font-black text-[cyan] text-4xl bg-[#3F4856]">
-        <h1>GuessingGame</h1>
+      <div className=" flex flex-col items-center  font-black text-[cyan] text-4xl bg-[#3F4856]">
+        <h1 className="mt-[5%]">Number Guessing Game</h1>
       </div>
       <div
         name="number-guessing-game"
@@ -51,6 +51,10 @@ const NUmberGuessingGame = () => {
           Check
         </button>
         <div className="cursor-none text-[cyan]">{guess}</div>
+        <p className=" bottom-10 absolute hover:text-[cyan] transition-colors duration-500 cursor-pointer text-normal text-sm">
+          Why is this here? I don't know. this was the first thing I made in
+          react so just left it as is
+        </p>
       </div>
     </div>
   );
