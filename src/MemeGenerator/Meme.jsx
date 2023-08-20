@@ -36,7 +36,7 @@ function Meme() {
           Meme Generator
         </h1>
         {meme.url.length !== 0 && (
-          <div className="flex flex-row text-black my-[5%] justify-center items-center ">
+          <div className="flex flex-row text-black my-[5%] justify-center items-center sm:max-w-sm">
             <input
               type="text"
               className="bg-[#375295] mr-5 px-2 py-1 text-white shadow-md shadow-[#435324] border-[#375295]"
@@ -62,8 +62,8 @@ function Meme() {
           Get Meme
         </button>
 
-        <div className="flex flex-col mt-[5%] justify-center items-center mb-10 max-w-lg ">
-          <h2 className="meme--text relative top-20 ">{meme.topText}</h2>
+        <div className="flex flex-col mt-[5%] justify-center items-center mb-10 max-w-lg sm:max-w-sm ">
+          <h2 className="meme--text  top-20 ">{meme.topText}</h2>
           {meme.url && meme.url.length !== 0 ? (
             <img
               className=" rounded-md "
@@ -74,7 +74,7 @@ function Meme() {
             <h1>Click the button above to get a meme...</h1>
           )}
 
-          <h2 className="meme--text relative bottom-28">{meme.bottomText}</h2>
+          <h2 className="meme--text   bottom-28">{meme.bottomText}</h2>
         </div>
       </div>
     </div>

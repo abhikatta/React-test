@@ -1,5 +1,5 @@
 import React from "react";
-
+import { FaBars } from "react-icons/fa";
 // anchors=>buttons + on press =>state change
 function Navbar(props) {
   return (
