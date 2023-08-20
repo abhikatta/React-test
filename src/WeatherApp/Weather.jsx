@@ -56,7 +56,7 @@ function Weather() {
   }
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen bg-cover sm:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] md:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] xs:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] text-teal-900 md:text-white">
-      <div className="flex flex-col sm:rounded-[2rem] justify-center items-center md:w-[33.5rem] md:h-[16rem] lg:w-[38.5rem] lg:h-[17.5rem] sm:w-[30rem] sm:h-[14.5rem]  backdrop-blur-lg"></div>
+      <div className="flex flex-col rounded-[2rem] justify-center items-center md:w-[33.5rem] md:h-[16rem] lg:w-[39.25rem] lg:h-[17.5rem] sm:w-[31rem] sm:h-[15rem] h-[13.75rem] w-[27.25rem] backdrop-blur-lg"></div>
       <div className="flex flex-col justify-center items-center w-screen h-screen absolute">
         <h1 className="md:text-5xl lg:text-6xl text-4xl text-center font-extrabold xs:top-[12%] sm:top-[10%] top-[10%]  absolute">
           Whatever Weather
@@ -64,14 +64,16 @@ function Weather() {
         <div className="flex flex-row  justify-center items-center top-0 rounded-[2rem] p-3 border-l-2  border-r-2 border-l-[#63cca9] border-r-[#63cca9]">
           {weather && (
             <div className="w-auto animate-pulse hover:animate-none hover:cursor-pointer flex flex-row mx-4">
-              <p className="md:text-5xl  text-4xl lg:text-6xl font-bold mx-3">
+              <p className="md:text-5xl sm:text-4xl text-3xl lg:text-6xl font-bold mx-3">
                 {weather.current.temp_c}
               </p>
               <p className="text-sm flex justify-center">
                 <sup className="font-bold text-sm">o</sup>
               </p>
-              <p className="md:text-5xl text-4xl lg:text-6xl font-bold">C</p>
-              <div className="  w-[20%] h-[20%]">
+              <p className="md:text-5xl sm:text-4xl text-3xl lg:text-6xl font-bold">
+                C
+              </p>
+              <div className=" w-[20%] h-[20%]">
                 <img
                   className=""
                   src={weather.current.condition.icon}
@@ -81,20 +83,22 @@ function Weather() {
           )}
           {weather && location.length !== 0 && (
             <div className=" flex flex-col">
-              <p className=" h-auto font-bold md:text-5xl lg:text-6xl text-4xl p-1">
+              <p className="md:text-5xl sm:text-4xl text-3xl lg:text-6xl font-bold">
                 {weather && weather.location.name}
               </p>
-              <p className=" h-auto md:text-5xl text-4xl lg:text-6xl p-1">
+              <p className=" h-auto md:text-5xl sm:text-4xl text-3xl lg:text-6xl p-1">
                 {weather.location.region}
               </p>
-              <p className=" h-auto text-2xl p-1">{weather.location.country}</p>
-              <p className=" h-auto text-2xl p-1">
+              <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
+                {weather.location.country}
+              </p>
+              <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
                 Date:{" "}
                 {JSON.stringify(weather.location.localtime)
                   .split(" ")[0]
                   .split('"')}
               </p>
-              <p className=" h-auto text-2xl p-1">
+              <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
                 Last updated:{" "}
                 {JSON.stringify(weather.location.localtime)
                   .split(" ")[1]
