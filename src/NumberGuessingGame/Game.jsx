@@ -5,13 +5,14 @@ const NUmberGuessingGame = () => {
   const [guess, setGuess] = useState("How's your guess?");
 
   const Increment = () => {
-    setCounter(counter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
   };
   const Decrement = () => {
-    setCounter(counter - 1);
+    setCounter((prevCounter) => prevCounter - 1);
   };
   const Check = () => {
-    let guessnum = 14;
+    let guessnum = Math.floor(Math.random() * 20);
+    console.log(guessnum);
     if (counter > guessnum) {
       setGuess("More than guess value");
     } else if (counter < guessnum) {
@@ -23,13 +24,15 @@ const NUmberGuessingGame = () => {
   return (
     <div
       name="number_guessing_game"
-      className="flex flex-col min-h-screen h-screen max-h-screen w-screen">
-      <div className=" flex flex-col items-center  font-black text-[cyan] text-4xl bg-[#3F4856]">
-        <h1 className="mt-[5%]">Number Guessing Game</h1>
-      </div>
+      className="flex flex-col min-h-screen h-screen  w-screen">
+      {/* <div className=" flex flex-col items-center  font-black text-[cyan] text-4xl bg-[#3F4856]"> */}
+      {/* </div> */}
       <div
         name="number-guessing-game"
         className=" flex flex-col items-center justify-center  w-full h-full bg-[#3F4856] ">
+        <h1 className=" font-extrabold mt-[5%] text-7xl text-[cyan]">
+          Number Guessing Game
+        </h1>
         <div>
           <div className=" flex text-[cyan] justify-center items-center">
             {counter}
