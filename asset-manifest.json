@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/learningreact/static/css/main.20b2c22b.css",
-    "main.js": "/learningreact/static/js/main.ea63ee97.js",
+    "main.css": "/learningreact/static/css/main.5354f453.css",
+    "main.js": "/learningreact/static/js/main.0bad32dd.js",
     "static/media/mobilebackground.jpg": "/learningreact/static/media/mobilebackground.11769c807b687bb7be22.jpg",
     "static/media/pcbackground.jpg": "/learningreact/static/media/pcbackground.77c768b6f839d9133b00.jpg",
     "index.html": "/learningreact/index.html",
-    "main.20b2c22b.css.map": "/learningreact/static/css/main.20b2c22b.css.map",
-    "main.ea63ee97.js.map": "/learningreact/static/js/main.ea63ee97.js.map"
+    "main.5354f453.css.map": "/learningreact/static/css/main.5354f453.css.map",
+    "main.0bad32dd.js.map": "/learningreact/static/js/main.0bad32dd.js.map"
   },
   "entrypoints": [
-    "static/css/main.20b2c22b.css",
-    "static/js/main.ea63ee97.js"
+    "static/css/main.5354f453.css",
+    "static/js/main.0bad32dd.js"
   ]
 }
