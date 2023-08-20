@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+
 import NumberGuessingGame from "./NumberGuessingGame/Game";
 import Meme from "./MemeGenerator/Meme";
 import Navbar from "./components/Navbar";
@@ -25,11 +25,13 @@ const App = () => {
   const [renderNumberGuessingGame, setRenderNumberGuessingGame] =
     useState(false);
   const [renderTodo, setRenderTodo] = useState(false);
+  const [renderWeatherApp, setRenderWeatherApp] = useState(false);
   function handleRenderHome() {
     setRenderHome(true);
     setRenderMeme(false);
     setRenderNumberGuessingGame(false);
     setRenderTodo(false);
+    setRenderWeatherApp(false);
     console.log("values changed to t f f f ");
   }
   function handleRenderMeme() {
@@ -37,6 +39,7 @@ const App = () => {
     setRenderMeme(true);
     setRenderNumberGuessingGame(false);
     setRenderTodo(false);
+    setRenderWeatherApp(false);
     console.log("values changed to f t f f ");
   }
   function handleRenderNumberGuessingGame() {
@@ -44,6 +47,7 @@ const App = () => {
     setRenderMeme(false);
     setRenderNumberGuessingGame(true);
     setRenderTodo(false);
+    setRenderWeatherApp(false);
     console.log("values changed to f f t f ");
   }
   function handleRenderTodo() {
@@ -51,22 +55,31 @@ const App = () => {
     setRenderMeme(false);
     setRenderNumberGuessingGame(false);
     setRenderTodo(true);
+    setRenderWeatherApp(false);
     console.log("values changed to f f f t ");
+  }
+  function handleRenderWeatherApp() {
+    setRenderHome(false);
+    setRenderMeme(false);
+    setRenderNumberGuessingGame(false);
+    setRenderTodo(false);
+    setRenderWeatherApp(true);
   }
 
   return (
     <div className="flex flex-row justify-center items-start">
-      {/* <Navbar
+      <Navbar
         handleRenderHome={handleRenderHome}
         handleRenderMeme={handleRenderMeme}
         handleRenderNumberGuessingGame={handleRenderNumberGuessingGame}
         handleRenderTodo={handleRenderTodo}
+        handleRenderWeatherApp={handleRenderWeatherApp}
       />
       {renderHome && <Home />}
       {renderMeme && <Meme />}
       {renderNumberGuessingGame && <NumberGuessingGame />}
-      {renderTodo && <Todo />} */}
-      <Weather />
+      {renderTodo && <Todo />}
+      {renderWeatherApp && <Weather />}
     </div>
   );
 };

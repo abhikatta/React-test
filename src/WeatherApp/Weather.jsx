@@ -41,9 +41,9 @@ function Weather() {
     console.log("Unable to retrieve your location");
   }
   return (
-    <div className="flex flex-col justify-center items-center w-screen  h-screen bg-cover sm:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] md:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] xs:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] text-teal-900 md:text-white">
-      <div className="flex flex-col justify-center items-center w-screen h-screen backdrop-blur-lg absolute "></div>
-      <div className="flex flex-col justify-center items-center w-screen h-screen    absolute">
+    <div className="flex flex-col justify-center items-center w-screen h-screen bg-cover sm:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] md:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] xs:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] text-teal-900 md:text-white">
+      <div className="flex flex-col justify-center items-center w-screen h-[90vh] mt-[10vh] backdrop-blur-lg absolute "></div>
+      <div className="flex flex-col justify-center items-center w-screen h-screen absolute">
         <h1 className="md:text-5xl lg:text-6xl text-4xl text-center font-extrabold top-[10%]  absolute">
           Whatever Weather
         </h1>

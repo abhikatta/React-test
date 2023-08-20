@@ -13,6 +13,7 @@ function Navbar(props) {
         Number Guessing Game
       </button>
       <button onClick={props.handleRenderTodo}>Todo</button>
+      <button onClick={props.handleRenderWeatherApp}>WeatherApp</button>
     </div>
   );
 }

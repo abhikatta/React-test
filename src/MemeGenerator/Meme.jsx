@@ -30,13 +30,13 @@ function Meme() {
   }
 
   return (
-    <div
-      name="meme_generator"
-      className="flex flex-col justify-center items-center max-h-full min-h-screen w-full bg-[#5c687b]">
-      <h1 className="text-bold mt-[5%] text-7xl">Meme Generator</h1>
-      <div className="   flex flex-row text-black justify-center items-center w-full h-28">
+    <div className="flex flex-col justify-center items-center w-full min-h-screen h-full bg-slate-600 text-teal-900 md:text-white">
+      <div className="flex flex-col justify-center items-center w-full min-h-screen pt-[15%] h-full ">
+        <h1 className="md:text-5xl lg:text-6xl text-4xl text-center font-extrabold ">
+          Meme Generator
+        </h1>
         {meme.url.length !== 0 && (
-          <>
+          <div className="flex flex-row text-black my-[5%] justify-center items-center ">
             <input
               type="text"
               className="bg-[#375295] mr-5 px-2 py-1 text-white shadow-md shadow-[#435324] border-[#375295]"
@@ -53,30 +53,29 @@ function Meme() {
               placeholder="Bottom Text"
               value={meme.bottomText}
             />
-          </>
+          </div>
         )}
-      </div>
-      <div>
+
         <button
-          // className="bg-[black] transition-colors duration-300 shadow-md shadow-current hover:bg-[#8cc9ef]  border-[teal] px-2 py-1 rounded-md border-2 text-[cyan] hover:text-[#132436] font-semibold"
-          className="bg-[#375295] ml-5 px-2 py-1 shadow-md shadow-[#435324] text-white border-[#375295]"
+          className="bg-[#375295]  px-2 py-1 shadow-md shadow-[#435324] text-white border-[#375295]"
           onClick={getMeme}>
           Get Meme
         </button>
-      </div>
-      <div className="flex flex-col mt-5 justify-center items-center mb-10 max-w-lg ">
-        <h2 className="meme--text relative top-20 ">{meme.topText}</h2>
-        {meme.url && meme.url.length !== 0 ? (
-          <img
-            className=" rounded-md max-w-lg:"
-            src={meme.url}
-            alt="Get some internet, you poor broke ass!"
-          />
-        ) : (
-          <h1>Click the button above to get a meme...</h1>
-        )}
 
-        <h2 className="meme--text relative bottom-28">{meme.bottomText}</h2>
+        <div className="flex flex-col mt-[5%] justify-center items-center mb-10 max-w-lg ">
+          <h2 className="meme--text relative top-20 ">{meme.topText}</h2>
+          {meme.url && meme.url.length !== 0 ? (
+            <img
+              className=" rounded-md "
+              src={meme.url}
+              alt="Get some internet, you poor broke ass!"
+            />
+          ) : (
+            <h1>Click the button above to get a meme...</h1>
+          )}
+
+          <h2 className="meme--text relative bottom-28">{meme.bottomText}</h2>
+        </div>
       </div>
     </div>
   );

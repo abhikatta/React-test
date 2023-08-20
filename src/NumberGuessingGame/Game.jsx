@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
 const NUmberGuessingGame = () => {
   const [counter, setCounter] = useState(0);
   const [guess, setGuess] = useState("How's your guess?");
-
+  const guessnum = 14;
   const Increment = () => {
     setCounter((prevCounter) => prevCounter + 1);
   };
@@ -11,8 +10,6 @@ const NUmberGuessingGame = () => {
     setCounter((prevCounter) => prevCounter - 1);
   };
   const Check = () => {
-    let guessnum = Math.floor(Math.random() * 20);
-    console.log(guessnum);
     if (counter > guessnum) {
       setGuess("More than guess value");
     } else if (counter < guessnum) {
@@ -25,8 +22,6 @@ const NUmberGuessingGame = () => {
     <div
       name="number_guessing_game"
       className="flex flex-col min-h-screen h-screen  w-screen">
-      {/* <div className=" flex flex-col items-center  font-black text-[cyan] text-4xl bg-[#3F4856]"> */}
-      {/* </div> */}
       <div
         name="number-guessing-game"
         className=" flex flex-col items-center justify-center  w-full h-full bg-[#3F4856] ">
@@ -53,7 +48,9 @@ const NUmberGuessingGame = () => {
           onClick={Check}>
           Check
         </button>
-        <div className="cursor-none text-[cyan]">{guess}</div>
+        <div className="cursor-none text-[cyan] border-2 rounded-md px-2 font-bold py-1">
+          {guess}
+        </div>
         <p className=" bottom-10 absolute hover:text-[cyan] transition-colors duration-500 cursor-pointer text-normal text-sm">
           Why is this here? I don't know. this was the first thing I made in
           react so just left it as is
@@ -62,5 +59,4 @@ const NUmberGuessingGame = () => {
     </div>
   );
 };
-
 export default NUmberGuessingGame;
