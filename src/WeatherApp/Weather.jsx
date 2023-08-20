@@ -56,7 +56,7 @@ function Weather() {
   }
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen bg-cover sm:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] md:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\pcbackground.jpg)] bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] xs:bg-[url(D:\Projects\React\learningreact\src\WeatherApp\assets\mobilebackground.jpg)] text-teal-900 md:text-white">
-      <div className="flex flex-col rounded-[2rem] justify-center items-center md:w-[33.5rem] md:h-[16rem] lg:w-[39.25rem] lg:h-[17.5rem] sm:w-[31rem] sm:h-[15rem] h-[13.75rem] w-[27.25rem] backdrop-blur-lg"></div>
+      <div className="flex flex-col rounded-[2rem] justify-center items-center md:w-[36.75rem] md:h-[16rem] lg:w-[42.5rem] lg:h-[18.25rem] sm:w-[31rem] sm:h-[14.25rem] h-[13.15rem] w-[27.5rem] backdrop-blur-lg"></div>
       <div className="flex flex-col justify-center items-center w-screen h-screen absolute">
         <h1 className="md:text-5xl lg:text-6xl text-4xl text-center font-extrabold xs:top-[12%] sm:top-[10%] top-[10%]  absolute">
           Whatever Weather
@@ -86,19 +86,19 @@ function Weather() {
               <p className="md:text-5xl sm:text-4xl text-3xl lg:text-6xl font-bold">
                 {weather && weather.location.name}
               </p>
-              <p className=" h-auto md:text-5xl sm:text-4xl text-3xl lg:text-6xl p-1">
+              <p className=" h-auto md:text-4xl sm:text-3xl text-2xl lg:text-5xl p-1">
                 {weather.location.region}
               </p>
               <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
                 {weather.location.country}
               </p>
-              <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
+              <p className=" h-auto w-auto md:text-3xl lg:text-4xl sm:text-2xl text-xl p-1">
                 Date:{" "}
                 {JSON.stringify(weather.location.localtime)
                   .split(" ")[0]
                   .split('"')}
               </p>
-              <p className=" h-auto md:text-4xl lg:text-5xl sm:text-2xl text-xl p-1">
+              <p className=" h-auto w-auto md:text-3xl lg:text-4xl sm:text-2xl text-xl p-1">
                 Last updated:{" "}
                 {JSON.stringify(weather.location.localtime)
                   .split(" ")[1]
