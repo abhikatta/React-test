@@ -61,7 +61,7 @@ function Weather() {
         <h1 className="md:text-5xl lg:text-6xl text-4xl text-center font-extrabold xs:top-[12%] sm:top-[10%] top-[10%]  absolute">
           Whatever Weather
         </h1>
-        <div className="flex flex-row  justify-center items-center top-0 rounded-[2rem] p-3 border-l-2  border-r-2 border-l-[#63cca9] border-r-[#63cca9]">
+        <div className="flex flex-row  justify-center items-center top-0 rounded-[2rem] md:w-[36.75rem] md:h-[16rem] lg:w-[42.5rem] lg:h-[18.25rem] sm:w-[31rem] sm:h-[14.25rem] h-[13.15rem] w-[27.5rem] p-3 border-l-2  border-r-2 border-l-[#63cca9] border-r-[#63cca9]">
           {weather && (
             <div className="w-auto animate-pulse hover:animate-none hover:cursor-pointer flex flex-row mx-4">
               <p className="md:text-5xl sm:text-4xl text-3xl lg:text-6xl font-bold mx-3">

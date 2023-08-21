@@ -26,7 +26,7 @@ const NUmberGuessingGame = () => {
       <div
         name="number-guessing-game"
         className=" flex flex-col items-center justify-center  w-full h-full bg-[#3F4856] ">
-        <h1 className=" font-extrabold mt-[5%] text-7xl text-[cyan]">
+        <h1 className=" font-extrabold  text-center mt-[5%] text-7xl text-[cyan]">
           Number Guessing Game
         </h1>
         <div>
@@ -34,7 +34,7 @@ const NUmberGuessingGame = () => {
             {counter}
           </div>
           <button
-            className="bg-[black] mx-2 my-2 buttons px-2 py-1 font-semibold"
+            className="bg-[black] mx-2 my-2 buttons  px-2 py-1 font-semibold"
             onClick={Increment}>
             +Increment+
           </button>
