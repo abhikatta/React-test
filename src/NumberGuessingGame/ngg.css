@@ -1,0 +1,17 @@
+* {
+  color: cyan;
+  font-family: "Montserrat";
+}
+
+.buttons {
+  background-color: black;
+  border-color: teal;
+  transition-duration: 0.4s;
+  border-radius: 0.4em;
+  box-shadow: 2px 1px 10px;
+}
+
+.buttons:hover {
+  background-color: rgb(140, 201, 239);
+  color: black;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ngg.css";
 const NUmberGuessingGame = () => {
   const [counter, setCounter] = useState(0);
   const [guess, setGuess] = useState("How's your guess?");
@@ -21,7 +22,7 @@ const NUmberGuessingGame = () => {
   return (
     <div
       name="number_guessing_game"
-      className="flex flex-col min-h-screen h-screen  w-screen">
+      className="flex flex-col min-h-screen h-screen w-screen">
       <div
         name="number-guessing-game"
         className=" flex flex-col items-center justify-center  w-full h-full bg-[#3F4856] ">
@@ -33,18 +34,18 @@ const NUmberGuessingGame = () => {
             {counter}
           </div>
           <button
-            className="bg-[black] mx-2 my-2 transition-colors duration-300 shadow-md shadow-current hover:bg-[#8cc9ef]  border-[teal] px-2 py-1 rounded-md border-2 text-[cyan] hover:text-[#132436] font-semibold"
+            className="bg-[black] mx-2 my-2 buttons px-2 py-1 font-semibold"
             onClick={Increment}>
             +Increment+
           </button>
           <button
-            className="bg-[black] mx-2 my-2 transition-colors duration-300 shadow-md shadow-current hover:bg-[#8cc9ef]  border-[teal] px-2 py-1 rounded-md border-2 text-[cyan] hover:text-[#132436] font-semibold"
+            className="bg-[black] mx-2 my-2 buttons px-2 py-1  font-semibold"
             onClick={Decrement}>
             -Decrement-
           </button>
         </div>
         <button
-          className="bg-[black] mx-2 my-2 transition-colors duration-300 shadow-md shadow-current hover:bg-[#8cc9ef]  border-[teal] px-2 py-1 rounded-md border-2 text-[cyan] hover:text-[#132436] font-semibold"
+          className="bg-[black] mx-2 my-2 buttons px-2 py-1  font-semibold"
           onClick={Check}>
           Check
         </button>
