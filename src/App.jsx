@@ -68,7 +68,7 @@ const App = () => {
 
   return (
     <div className="flex flex-row justify-center items-start">
-      <Navbar
+      {/* <Navbar
         handleRenderHome={handleRenderHome}
         handleRenderMeme={handleRenderMeme}
         handleRenderNumberGuessingGame={handleRenderNumberGuessingGame}
@@ -79,7 +79,8 @@ const App = () => {
       {renderMeme && <Meme />}
       {renderNumberGuessingGame && <NumberGuessingGame />}
       {renderTodo && <Todo />}
-      {renderWeatherApp && <Weather />}
+      {renderWeatherApp && <Weather />} */}
+      <Weather />
     </div>
   );
 };
