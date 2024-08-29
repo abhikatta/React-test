@@ -1,10 +1,13 @@
 import "./style.css";
+// '?worker' tells Vite to treat the imported file as a Web Worker
+import MyWorker from "./calculation.ts?worker";
+const calculator = new MyWorker();
+
+let grid: number[][] = [[]];
 const initialValue = 40;
 const [rows, cols] = [initialValue, initialValue];
 
-let grid: (number | null)[][] = [];
-
-function make2DArray(rows: number, cols: number) {
+function make2DArray(rows: number, cols: number): number[][] {
     let arr = new Array(rows);
     for (let i = 0; i < rows; i++) {
         arr[i] = new Array(cols).fill(0);
@@ -13,6 +16,7 @@ function make2DArray(rows: number, cols: number) {
 }
 
 grid = make2DArray(rows, cols);
+const newGrid = make2DArray(rows, cols);
 
 grid[0][1] = 1;
 grid[2][2] = 1;
@@ -22,13 +26,16 @@ grid[rows - rows / 2][1] = 1;
 const div = document.getElementById("app");
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 
-canvas.addEventListener("mousemove", () => {
-    onmousemove = function (e) {
+canvas.addEventListener("mousedown", () => {
+    onmousedown = function (e) {
         console.log(e.x, e.y);
+        const x = Math.ceil((e.offsetX * initialValue) / canvas.width) - 1;
+        const y = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;
+        console.log(x, y);
     };
 });
 
-function setupGrid() {
+const setupGrid = () => {
     canvas.width = rows * 10;
     canvas.height = cols * 10;
     if (canvas.getContext) {
@@ -55,30 +62,22 @@ function setupGrid() {
             }
         }
     }
-}
+};
 
 setupGrid();
 
-function updateGrid() {
-    const newGrid = make2DArray(rows, cols);
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            if (grid[i][j] === 1) {
-                if (i < rows - 1 && grid[i + 1][j] === 0) {
-                    newGrid[i + 1][j] = 1;
-                    newGrid[i][j] = 0;
-                } else {
-                    newGrid[i][j] = 1;
-                }
-            }
-        }
-    }
-    grid = newGrid;
-    setupGrid();
-}
-
 canvas.style.backgroundColor = "beige";
-
 div?.append(canvas);
+
+const updateGrid = () => {
+    calculator.postMessage({ rows, cols, grid, newGrid });
+    calculator.onmessage = function (e) {
+        grid = e.data;
+        setupGrid();
+    };
+    calculator.onerror = function (e) {
+        console.error(e.message);
+    };
+};
 
 setInterval(updateGrid, 40);
