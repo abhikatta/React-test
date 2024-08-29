@@ -18,22 +18,8 @@ function make2DArray(rows: number, cols: number): number[][] {
 grid = make2DArray(rows, cols);
 const newGrid = make2DArray(rows, cols);
 
-grid[0][1] = 1;
-grid[2][2] = 1;
-grid[1][3] = 1;
-
-grid[rows - rows / 2][1] = 1;
 const div = document.getElementById("app");
 const canvas: HTMLCanvasElement = document.createElement("canvas");
-
-canvas.addEventListener("mousedown", () => {
-    onmousedown = function (e) {
-        console.log(e.x, e.y);
-        const x = Math.ceil((e.offsetX * initialValue) / canvas.width) - 1;
-        const y = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;
-        console.log(x, y);
-    };
-});
 
 const setupGrid = () => {
     canvas.width = rows * 10;
@@ -45,14 +31,16 @@ const setupGrid = () => {
 
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
-                ctx.strokeStyle = "white";
-                ctx.strokeRect(
+                ctx.roundRect(
                     j * cellWidth,
                     i * cellHeight,
                     cellWidth,
                     cellHeight
                 );
-                ctx.fillStyle = grid[i][j] === 0 ? "black" : "white";
+
+                ctx.fillStyle =
+                    grid[i][j] === 0 ? "black" : "rgba(203,189,147,0.8)";
+
                 ctx.fillRect(
                     j * cellWidth,
                     i * cellHeight,
@@ -66,7 +54,18 @@ const setupGrid = () => {
 
 setupGrid();
 
-canvas.style.backgroundColor = "beige";
+canvas.style.border = "1px solid white";
+canvas.addEventListener("mousemove", () => {
+    onmousemove = function (e) {
+        const x = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;
+        const y = Math.ceil((e.offsetX * initialValue) / canvas.width) - 1;
+        if (x < rows && y < cols) {
+            grid[x][y] = 1;
+            setupGrid();
+        }
+    };
+});
+
 div?.append(canvas);
 
 const updateGrid = () => {
