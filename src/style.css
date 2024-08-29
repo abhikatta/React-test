@@ -27,6 +27,11 @@ footer {
     text-decoration: none;
     transition: all 400ms;
 }
+
 .footer-link:hover {
     transform: translate3d(0, -5px, 0);
+}
+
+.head {
+    margin-bottom: 10px;
 }

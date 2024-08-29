@@ -4,15 +4,22 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite + TS</title>
+        <title>Visualizer</title>
     </head>
     <body>
-        <div>
-            <h1>Sand falling simulation</h1>
-            <span>Hover your mouse in the box to simulate sand fall</span>
+        <script type="module" src="/src/main.ts"></script>
+        <div class="head">
+            <input
+                id="array-range"
+                type="range"
+                min="10"
+                max="100"
+                value="10"
+                onchange="e=>document.getElementById('app').append(e.target.value)" />
+            <p id="selected-range"></p>
+            <button id="start">Start visualizer</button>
         </div>
         <div id="app"></div>
-        <script type="module" src="/src/main.ts"></script>
         <footer>
             <a class="footer-link" href="https://github.com/abhikatta">
                 Github

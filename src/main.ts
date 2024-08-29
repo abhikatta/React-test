@@ -1,80 +1,75 @@
+// draw the initial array bar graph
+// bubble sort
+// in every swap make updates to the bar graph
+
 import "./style.css";
-// '?worker' tells Vite to treat the imported file as a Web Worker
-import MyWorker from "./calculation.ts?worker";
-const calculator = new MyWorker();
+let array: number[] = [];
 
-let grid: number[][] = [[]];
-const initialValue = 40;
-const [rows, cols] = [initialValue, initialValue];
-const div = document.getElementById("app");
+const div = document.getElementById("app") as HTMLDivElement;
 const canvas: HTMLCanvasElement = document.createElement("canvas");
+const rangeElem = document.getElementById("array-range") as HTMLInputElement;
+const rangeTextElem = document.getElementById(
+    "selected-range"
+) as HTMLInputElement;
+const startButton = document.getElementById("start") as HTMLButtonElement;
 
-function make2DArray(rows: number, cols: number): number[][] {
-    let arr = new Array(rows);
-    for (let i = 0; i < rows; i++) {
-        arr[i] = new Array(cols).fill(0);
+rangeElem.addEventListener("input", function (e) {
+    const val = e.target as HTMLInputElement;
+    const rangeVal = Number(val.value);
+    rangeTextElem.textContent = "Value: " + rangeVal;
+    let newArray: number[] = [];
+    for (let i = 0; i < rangeVal; i++) {
+        let randomNum = Math.floor(Math.random() * rangeVal);
+        newArray.push(randomNum);
     }
-    return arr;
-}
-
-grid = make2DArray(rows, cols);
-const newGrid = make2DArray(rows, cols);
-
-const setupGrid = () => {
-    canvas.width = rows * 10;
-    canvas.height = cols * 10;
-    if (canvas.getContext) {
-        const ctx = canvas.getContext("2d")!;
-        const cellWidth = canvas.width / cols;
-        const cellHeight = canvas.height / rows;
-
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                ctx.roundRect(
-                    j * cellWidth,
-                    i * cellHeight,
-                    cellWidth,
-                    cellHeight
-                );
-
-                ctx.fillStyle =
-                    grid[i][j] === 0 ? "black" : "rgba(203,189,147,0.8)";
-
-                ctx.fillRect(
-                    j * cellWidth,
-                    i * cellHeight,
-                    cellWidth,
-                    cellHeight
-                );
-            }
-        }
-    }
-};
-
-setupGrid();
-
-canvas.addEventListener("mousemove", () => {
-    onmousemove = function (e) {
-        const x = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;
-        const y = Math.ceil((e.offsetX * initialValue) / canvas.width) - 1;
-        if (x < rows && y < cols) {
-            grid[x][y] = 1;
-            setupGrid();
-        }
-    };
+    array = [...newArray];
+    drawBars(array);
 });
 
 div?.append(canvas);
 
-const updateGrid = () => {
-    calculator.postMessage({ rows, cols, grid, newGrid });
-    calculator.onmessage = function (e) {
-        grid = e.data;
-        setupGrid();
-    };
-    calculator.onerror = function (e) {
-        console.error(e.message);
-    };
-};
+function drawBars(array: number[]) {
+    const cxt = canvas.getContext("2d")!;
+    canvas.width = screen.availWidth * 0.7;
+    canvas.height = screen.availHeight * 0.7;
+    const barWidth = canvas.width / array.length;
+    for (let i = 0; i < array.length; i++) {
+        const h = canvas.height - (canvas.height - array[i]);
+        const w = canvas.width / array.length;
+        cxt.fillStyle = "rgba(100,200,300)";
+        cxt?.fillRect(i * barWidth, canvas.height - array[i], w, h);
+        cxt.textRendering = "geometricPrecision";
+        cxt.textAlign = "center";
+        cxt.textBaseline = "ideographic";
+        cxt.fillText(
+            array[i].toString(),
+            i * barWidth + barWidth / 2,
+            canvas.height - array[i] - 5
+        );
+    }
+}
 
-setInterval(updateGrid, 20);
+drawBars(array);
+
+async function bubbleSort() {
+    let newArray = [...array];
+    for (let i = 0; i < newArray.length; i++) {
+        for (let j = 0; j < newArray.length; j++) {
+            {
+                if (newArray[i] < newArray[j]) {
+                    let temp = newArray[i];
+                    newArray[i] = newArray[j];
+                    newArray[j] = temp;
+                }
+                drawBars(newArray);
+                await new Promise((resolve) => setInterval(resolve, 5));
+            }
+        }
+    }
+    rangeElem.disabled = false;
+}
+
+startButton.addEventListener("click", async () => {
+    rangeElem.disabled = true;
+    bubbleSort();
+});
