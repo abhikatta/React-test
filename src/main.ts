@@ -6,6 +6,8 @@ const calculator = new MyWorker();
 let grid: number[][] = [[]];
 const initialValue = 40;
 const [rows, cols] = [initialValue, initialValue];
+const div = document.getElementById("app");
+const canvas: HTMLCanvasElement = document.createElement("canvas");
 
 function make2DArray(rows: number, cols: number): number[][] {
     let arr = new Array(rows);
@@ -17,9 +19,6 @@ function make2DArray(rows: number, cols: number): number[][] {
 
 grid = make2DArray(rows, cols);
 const newGrid = make2DArray(rows, cols);
-
-const div = document.getElementById("app");
-const canvas: HTMLCanvasElement = document.createElement("canvas");
 
 const setupGrid = () => {
     canvas.width = rows * 10;
@@ -78,4 +77,4 @@ const updateGrid = () => {
     };
 };
 
-setInterval(updateGrid, 40);
+setInterval(updateGrid, 20);
