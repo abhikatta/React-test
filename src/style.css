@@ -14,7 +14,6 @@ body {
 
 canvas {
     border: 0.2px solid white;
-    cursor: grab;
 }
 
 footer {
@@ -33,5 +32,12 @@ footer {
 }
 
 .head {
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="range"] {
+    cursor: grab;
 }

@@ -15,10 +15,22 @@
                 min="10"
                 max="100"
                 value="10"
-                onchange="e=>document.getElementById('app').append(e.target.value)" />
-            <p id="selected-range"></p>
+                step="1" />
+            <p id="display-range">Value: Not Selected</p>
+            <div>
+                <input
+                    id="delay-range"
+                    type="range"
+                    min="0"
+                    max="50"
+                    value="0"
+                    step="10" />
+                <p id="display-delay-range">Delay: Not Selected</p>
+            </div>
+
             <button id="start">Start visualizer</button>
         </div>
+
         <div id="app"></div>
         <footer>
             <a class="footer-link" href="https://github.com/abhikatta">

@@ -4,18 +4,27 @@
 
 import "./style.css";
 let array: number[] = [];
-
+let delayRangeVal: number;
 const div = document.getElementById("app") as HTMLDivElement;
 const canvas: HTMLCanvasElement = document.createElement("canvas");
+
 const rangeElem = document.getElementById("array-range") as HTMLInputElement;
 const rangeTextElem = document.getElementById(
-    "selected-range"
+    "display-range"
+) as HTMLParagraphElement;
+
+const delayRangeElem = document.getElementById(
+    "delay-range"
 ) as HTMLInputElement;
+const delayRangeTextElem = document.getElementById(
+    "display-delay-range"
+) as HTMLParagraphElement;
+
 const startButton = document.getElementById("start") as HTMLButtonElement;
 
 rangeElem.addEventListener("input", function (e) {
     const val = e.target as HTMLInputElement;
-    const rangeVal = Number(val.value);
+    const rangeVal = parseInt(val.value);
     rangeTextElem.textContent = "Value: " + rangeVal;
     let newArray: number[] = [];
     for (let i = 0; i < rangeVal; i++) {
@@ -26,18 +35,28 @@ rangeElem.addEventListener("input", function (e) {
     drawBars(array);
 });
 
+delayRangeElem.addEventListener("input", function (e) {
+    const val = e.target as HTMLInputElement;
+    delayRangeVal = parseInt(val.value);
+    delayRangeTextElem.textContent = "Delay: " + delayRangeVal;
+    console.log(delayRangeVal);
+});
+
 div?.append(canvas);
 
 function drawBars(array: number[]) {
     const cxt = canvas.getContext("2d")!;
     canvas.width = screen.availWidth * 0.7;
-    canvas.height = screen.availHeight * 0.7;
+    canvas.height = screen.availHeight * 0.4;
     const barWidth = canvas.width / array.length;
     for (let i = 0; i < array.length; i++) {
-        const h = canvas.height - (canvas.height - array[i]);
-        const w = canvas.width / array.length;
         cxt.fillStyle = "rgba(100,200,300)";
-        cxt?.fillRect(i * barWidth, canvas.height - array[i], w, h);
+        cxt?.fillRect(
+            i * barWidth,
+            canvas.height - array[i],
+            barWidth,
+            canvas.height * 0.9
+        );
         cxt.textRendering = "geometricPrecision";
         cxt.textAlign = "center";
         cxt.textBaseline = "ideographic";
@@ -62,14 +81,19 @@ async function bubbleSort() {
                     newArray[j] = temp;
                 }
                 drawBars(newArray);
-                await new Promise((resolve) => setInterval(resolve, 5));
+
+                await new Promise((resolve) =>
+                    setInterval(resolve, delayRangeVal || 0)
+                );
             }
         }
     }
     rangeElem.disabled = false;
+    delayRangeElem.disabled = false;
 }
 
 startButton.addEventListener("click", async () => {
     rangeElem.disabled = true;
+    delayRangeElem.disabled = true;
     bubbleSort();
 });
