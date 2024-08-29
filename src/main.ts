@@ -54,7 +54,6 @@ const setupGrid = () => {
 
 setupGrid();
 
-canvas.style.border = "1px solid white";
 canvas.addEventListener("mousemove", () => {
     onmousemove = function (e) {
         const x = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;

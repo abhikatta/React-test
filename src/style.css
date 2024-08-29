@@ -13,5 +13,20 @@ body {
 }
 
 canvas {
-    border: white;
+    border: 0.2px solid white;
+    cursor: grab;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+}
+.footer-link {
+    display: inline-block;
+    color: whitesmoke;
+    text-decoration: none;
+    transition: all 400ms;
+}
+.footer-link:hover {
+    transform: translate3d(0, -5px, 0);
 }
