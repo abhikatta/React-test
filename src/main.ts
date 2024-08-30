@@ -106,6 +106,7 @@ const updateGrid = () => {
     calculator.onerror = function (e) {
         console.error(e.message);
     };
+    requestAnimationFrame(updateGrid);
 };
 
-setInterval(updateGrid, 20);
+requestAnimationFrame(updateGrid);
