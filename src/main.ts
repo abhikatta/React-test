@@ -8,7 +8,7 @@ const initialValue = 40;
 let hue = 0;
 
 const [rows, cols] = [initialValue, initialValue];
-const div = document.getElementById("app");
+const app = document.getElementById("app");
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 
 function make2DArray(rows: number, cols: number): number[][] {
@@ -55,10 +55,47 @@ const setupGrid = () => {
 
 setupGrid();
 
-// TODO: fix the mouse position algo
-canvas.addEventListener("mousemove", () => {});
+canvas.addEventListener("mousemove", (e) => {
+    const canvasBounds = canvas.getBoundingClientRect();
+    const canvasX = canvasBounds.x;
+    const canvasY = canvasBounds.y;
 
-div?.append(canvas);
+    const mouseX = e.clientX - canvasX;
+    const mouseY = e.clientY - canvasY;
+
+    const x = Math.floor((mouseX * initialValue) / canvas.width);
+    const y = Math.floor((mouseY * initialValue) / canvas.height);
+    if (x >= 0 && x <= initialValue - 1 && y >= 0 && y <= initialValue - 1) {
+        grid[y][x] = 1;
+        setupGrid();
+    }
+});
+
+canvas.addEventListener("touchmove", (e) => {
+    const canvasBounds = canvas.getBoundingClientRect();
+    const canvasX = canvasBounds.x;
+    const canvasY = canvasBounds.y;
+    const touches = e.touches;
+
+    for (let i = 0; i < touches.length; i++) {
+        const mouseX = touches[i].clientX - canvasX;
+        const mouseY = touches[i].clientY - canvasY;
+
+        const x = Math.floor((mouseX * initialValue) / canvas.width);
+        const y = Math.floor((mouseY * initialValue) / canvas.height);
+        if (
+            x >= 0 &&
+            x <= initialValue - 1 &&
+            y >= 0 &&
+            y <= initialValue - 1
+        ) {
+            grid[y][x] = 1;
+            setupGrid();
+        }
+    }
+});
+
+app?.append(canvas);
 
 const updateGrid = () => {
     calculator.postMessage({ rows, cols, grid, newGrid, hue });
