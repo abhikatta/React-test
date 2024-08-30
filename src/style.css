@@ -4,18 +4,17 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: black;
     color: rgba(255, 255, 255, 0.87);
+
     width: 100vw;
-    height: 100vh;
+    height: 97vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 canvas {
-    border: 0.2px solid white;
+    border: 1px solid white;
 }
-
 footer {
     position: absolute;
     bottom: 10px;
@@ -29,15 +28,4 @@ footer {
 
 .footer-link:hover {
     transform: translate3d(0, -5px, 0);
-}
-
-.head {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-input[type="range"] {
-    cursor: grab;
 }

@@ -1,77 +1,118 @@
-// draw the initial array bar graph
-// bubble sort
-// in every swap make updates to the bar graph
-
-import { bubbleSort } from "./sortingAlgos";
+import { createRandomColor } from "./utils";
 import "./style.css";
-let array: number[] = [];
-let delayRangeVal: number;
-const div = document.getElementById("app") as HTMLDivElement;
-const canvas: HTMLCanvasElement = document.createElement("canvas");
 
-const rangeElem = document.getElementById("array-range") as HTMLInputElement;
-const rangeTextElem = document.getElementById(
-    "display-range"
-) as HTMLParagraphElement;
+const MAX_RADIUS = 60;
+const MIN_RADIUS = 20;
+const canvas = document.createElement("canvas");
+canvas.width = screen.width * 0.8;
+canvas.height = screen.height * 0.7;
+const app = document.getElementById("app");
+app?.append(canvas);
 
-const delayRangeElem = document.getElementById(
-    "delay-range"
-) as HTMLInputElement;
-const delayRangeTextElem = document.getElementById(
-    "display-delay-range"
-) as HTMLParagraphElement;
+// STEP 1:
+// draw a ball on the canvas and make it move in a random direction and have:
+// velocity, radius, mass, time
 
-const startButton = document.getElementById("start") as HTMLButtonElement;
+const createBall = () => {
+    const radius =
+        Math.ceil(Math.random() * MAX_RADIUS - MIN_RADIUS) + MIN_RADIUS;
+    const centerX =
+        canvas.width / (Math.random() * canvas.width) +
+        Math.random() * canvas.width +
+        radius;
+    const centerY =
+        canvas.height / (Math.random() * canvas.height) +
+        Math.random() * canvas.height +
+        radius;
+    const mass = radius * radius;
+    const velocity = Math.ceil(Math.random() * radius);
+    const dt = Math.floor(Math.random() * radius);
+    const RGB = createRandomColor();
+    const fillStyle = `rgba(${RGB[0]},${RGB[1]},${RGB[2]})`;
+    const strokeStyle = `rgba(${RGB[2]},${RGB[0]},${RGB[1]})`;
+    const vector = [Math.random(), Math.random()];
+    const direction = Math.ceil(Math.random() * 4);
+    return {
+        radius,
+        direction,
+        centerX,
+        centerY,
+        mass,
+        velocity,
+        dt,
+        fillStyle,
+        strokeStyle,
+        vector,
+    };
+};
+type BallProps = ReturnType<typeof createBall>;
+let ball1: BallProps = createBall();
 
-rangeElem.addEventListener("input", function (e) {
-    const val = e.target as HTMLInputElement;
-    const rangeVal = parseInt(val.value);
-    rangeTextElem.textContent = "Value: " + rangeVal;
-    let newArray: number[] = [];
-    for (let i = 0; i < rangeVal; i++) {
-        let randomNum = Math.floor(Math.random() * rangeVal);
-        newArray.push(randomNum);
-    }
-    array = [...newArray];
-    drawBars(array);
-});
-
-delayRangeElem.addEventListener("input", function (e) {
-    const val = e.target as HTMLInputElement;
-    delayRangeVal = parseInt(val.value);
-    delayRangeTextElem.textContent = "Delay: " + delayRangeVal;
-    console.log(delayRangeVal);
-});
-
-div?.append(canvas);
-
-function drawBars(array: number[]) {
-    const cxt = canvas.getContext("2d")!;
-    canvas.width = screen.availWidth * 0.7;
-    canvas.height = screen.availHeight * 0.5;
-    const barWidth = canvas.width / array.length;
-    for (let i = 0; i < array.length; i++) {
-        const barHeight = (array[i] * canvas.height) / 104;
-        const barX = i * barWidth;
-        const barY = canvas.height - barHeight;
-        cxt.fillStyle = "rgba(100,200,300)";
-
-        cxt?.fillRect(barX, barY, barWidth, barHeight);
-        cxt.textAlign = "center";
-        cxt.textBaseline = "ideographic";
-        cxt.textRendering = "auto";
-        cxt.fillText(
-            array[i].toString(),
-            i * barWidth + barWidth / 2,
-            canvas.height - barHeight
+function drawBall(ballProps: BallProps) {
+    const context = canvas.getContext("2d");
+    if (context) {
+        context.beginPath();
+        context.arc(
+            ballProps.centerX,
+            ballProps.centerY,
+            ballProps.radius,
+            0,
+            2 * Math.PI,
+            false
         );
+        context.fillStyle = ballProps.fillStyle;
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = ballProps.strokeStyle;
+        context.stroke();
+        context.closePath();
     }
 }
 
-drawBars(array);
+drawBall(ball1);
 
-startButton.addEventListener("click", async () => {
-    rangeElem.disabled = true;
-    delayRangeElem.disabled = true;
-    bubbleSort(array, drawBars, delayRangeVal, rangeElem, delayRangeElem);
-});
+// TODO:
+// function collisionDetected(ball: BallProps): boolean {
+//     return false;
+// }
+
+const moveBall = () => {
+    const newBall1 = { ...ball1 };
+
+    switch (ball1.direction) {
+        case 1:
+            newBall1.centerX = ball1.centerX +=
+                ball1.vector[0] * ball1.velocity;
+            newBall1.centerY = ball1.centerY +=
+                ball1.vector[1] * ball1.velocity;
+            break;
+        case 2:
+            newBall1.centerX = ball1.centerX +=
+                ball1.vector[0] * ball1.velocity;
+            newBall1.centerY = ball1.centerY -=
+                ball1.vector[1] * ball1.velocity;
+            break;
+        case 3:
+            newBall1.centerX = ball1.centerX -=
+                ball1.vector[0] * ball1.velocity;
+            newBall1.centerY = ball1.centerY +=
+                ball1.vector[1] * ball1.velocity;
+            break;
+        case 4:
+            newBall1.centerX = ball1.centerX -=
+                ball1.vector[0] * ball1.velocity;
+            newBall1.centerY = ball1.centerY -=
+                ball1.vector[1] * ball1.velocity;
+            break;
+
+        default:
+            break;
+    }
+    ball1 = { ...newBall1 };
+    const context = canvas.getContext("2d");
+    context?.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall(ball1);
+    requestAnimationFrame(moveBall);
+};
+
+requestAnimationFrame(moveBall);
