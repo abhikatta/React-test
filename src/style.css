@@ -20,8 +20,11 @@ canvas {
 footer {
     position: absolute;
     bottom: 10px;
+    width: 100vw;
 }
 .footer-link {
+    width: 100%;
+    text-align: center;
     display: inline-block;
     color: whitesmoke;
     text-decoration: none;

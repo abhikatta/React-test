@@ -5,6 +5,8 @@ const calculator = new MyWorker();
 
 let grid: number[][] = [[]];
 const initialValue = 40;
+let hue = 0;
+
 const [rows, cols] = [initialValue, initialValue];
 const div = document.getElementById("app");
 const canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -36,10 +38,10 @@ const setupGrid = () => {
                     cellWidth,
                     cellHeight
                 );
-
                 ctx.fillStyle =
-                    grid[i][j] === 0 ? "black" : "rgba(203,189,147,0.8)";
-
+                    grid[i][j] === 0
+                        ? "black"
+                        : `hsl(${(grid[i][j] + 1) % 360}, 100%, 40%)`; // hot sand ig
                 ctx.fillRect(
                     j * cellWidth,
                     i * cellHeight,
@@ -53,21 +55,13 @@ const setupGrid = () => {
 
 setupGrid();
 
-canvas.addEventListener("mousemove", () => {
-    onmousemove = function (e) {
-        const x = Math.ceil((e.offsetY * initialValue) / canvas.height) - 1;
-        const y = Math.ceil((e.offsetX * initialValue) / canvas.width) - 1;
-        if (x < rows && y < cols) {
-            grid[x][y] = 1;
-            setupGrid();
-        }
-    };
-});
+// TODO: fix the mouse position algo
+canvas.addEventListener("mousemove", () => {});
 
 div?.append(canvas);
 
 const updateGrid = () => {
-    calculator.postMessage({ rows, cols, grid, newGrid });
+    calculator.postMessage({ rows, cols, grid, newGrid, hue });
     calculator.onmessage = function (e) {
         grid = e.data;
         setupGrid();
