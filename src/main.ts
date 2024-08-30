@@ -30,7 +30,7 @@ const createBall = () => {
     const RGB = createRandomColor();
     const fillStyle = `rgba(${RGB[0]},${RGB[1]},${RGB[2]})`;
     const strokeStyle = `rgba(${RGB[2]},${RGB[0]},${RGB[1]})`;
-    const vector = [Math.random(), Math.random()];
+    const vector = { x: Math.random(), y: Math.random() };
     const direction = Math.ceil(Math.random() * 4);
     return {
         radius,
@@ -47,6 +47,7 @@ const createBall = () => {
 };
 type BallProps = ReturnType<typeof createBall>;
 let ball1: BallProps = createBall();
+// let ball2: BallProps = createBall();
 
 function drawBall(ballProps: BallProps) {
     const context = canvas.getContext("2d");
@@ -70,49 +71,58 @@ function drawBall(ballProps: BallProps) {
 }
 
 drawBall(ball1);
+// drawBall(ball2);
 
 // TODO:
-// function collisionDetected(ball: BallProps): boolean {
-//     return false;
-// }
+function detectWallCollision(ball: BallProps) {
+    if (
+        ball.centerX + ball.radius >= canvas.width ||
+        ball.centerX - ball.radius <= 0
+    ) {
+        ball.vector.x *= -1;
+    }
+    if (
+        ball.centerY + ball.radius >= canvas.height ||
+        ball.centerY - ball.radius <= 0
+    ) {
+        ball.vector.y *= -1;
+    }
+}
 
-const moveBall = () => {
-    const newBall1 = { ...ball1 };
-
-    switch (ball1.direction) {
+const moveBall = (ball: BallProps) => {
+    const newBall = { ...ball };
+    switch (ball.direction) {
         case 1:
-            newBall1.centerX = ball1.centerX +=
-                ball1.vector[0] * ball1.velocity;
-            newBall1.centerY = ball1.centerY +=
-                ball1.vector[1] * ball1.velocity;
+            newBall.centerX = ball.centerX += ball.vector.x * ball.velocity;
+            newBall.centerY = ball1.centerY += ball.vector.y * ball.velocity;
             break;
         case 2:
-            newBall1.centerX = ball1.centerX +=
-                ball1.vector[0] * ball1.velocity;
-            newBall1.centerY = ball1.centerY -=
-                ball1.vector[1] * ball1.velocity;
+            newBall.centerX = ball.centerX += ball.vector.x * ball.velocity;
+            newBall.centerY = ball1.centerY -= ball.vector.y * ball.velocity;
             break;
         case 3:
-            newBall1.centerX = ball1.centerX -=
-                ball1.vector[0] * ball1.velocity;
-            newBall1.centerY = ball1.centerY +=
-                ball1.vector[1] * ball1.velocity;
+            newBall.centerX = ball.centerX -= ball.vector.x * ball.velocity;
+            newBall.centerY = ball.centerY += ball.vector.y * ball.velocity;
             break;
         case 4:
-            newBall1.centerX = ball1.centerX -=
-                ball1.vector[0] * ball1.velocity;
-            newBall1.centerY = ball1.centerY -=
-                ball1.vector[1] * ball1.velocity;
+            newBall.centerX = ball.centerX -= ball.vector.x * ball.velocity;
+            newBall.centerY = ball.centerY -= ball.vector.y * ball.velocity;
             break;
 
         default:
             break;
     }
-    ball1 = { ...newBall1 };
+    ball = { ...newBall };
+
     const context = canvas.getContext("2d");
-    context?.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall(ball1);
-    requestAnimationFrame(moveBall);
+    // context?.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall(ball);
+    detectWallCollision(ball);
+    requestAnimationFrame(() => moveBall(ball));
 };
 
-requestAnimationFrame(moveBall);
+const moveBothBalls = async () => {
+    moveBall(ball1);
+    // moveBall(ball2);
+};
+requestAnimationFrame(moveBothBalls);
