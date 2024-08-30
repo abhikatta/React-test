@@ -2,6 +2,7 @@
 // bubble sort
 // in every swap make updates to the bar graph
 
+import { bubbleSort } from "./sortingAlgos";
 import "./style.css";
 let array: number[] = [];
 let delayRangeVal: number;
@@ -47,53 +48,30 @@ div?.append(canvas);
 function drawBars(array: number[]) {
     const cxt = canvas.getContext("2d")!;
     canvas.width = screen.availWidth * 0.7;
-    canvas.height = screen.availHeight * 0.4;
+    canvas.height = screen.availHeight * 0.5;
     const barWidth = canvas.width / array.length;
     for (let i = 0; i < array.length; i++) {
+        const barHeight = (array[i] * canvas.height) / 104;
+        const barX = i * barWidth;
+        const barY = canvas.height - barHeight;
         cxt.fillStyle = "rgba(100,200,300)";
-        cxt?.fillRect(
-            i * barWidth,
-            canvas.height - array[i],
-            barWidth,
-            canvas.height * 0.9
-        );
-        cxt.textRendering = "geometricPrecision";
+
+        cxt?.fillRect(barX, barY, barWidth, barHeight);
         cxt.textAlign = "center";
         cxt.textBaseline = "ideographic";
+        cxt.textRendering = "auto";
         cxt.fillText(
             array[i].toString(),
             i * barWidth + barWidth / 2,
-            canvas.height - array[i] - 5
+            canvas.height - barHeight
         );
     }
 }
 
 drawBars(array);
 
-async function bubbleSort() {
-    let newArray = [...array];
-    for (let i = 0; i < newArray.length; i++) {
-        for (let j = 0; j < newArray.length; j++) {
-            {
-                if (newArray[i] < newArray[j]) {
-                    let temp = newArray[i];
-                    newArray[i] = newArray[j];
-                    newArray[j] = temp;
-                }
-                drawBars(newArray);
-
-                await new Promise((resolve) =>
-                    setInterval(resolve, delayRangeVal || 0)
-                );
-            }
-        }
-    }
-    rangeElem.disabled = false;
-    delayRangeElem.disabled = false;
-}
-
 startButton.addEventListener("click", async () => {
     rangeElem.disabled = true;
     delayRangeElem.disabled = true;
-    bubbleSort();
+    bubbleSort(array, drawBars, delayRangeVal, rangeElem, delayRangeElem);
 });
