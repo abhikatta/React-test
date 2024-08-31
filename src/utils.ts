@@ -1,26 +1,53 @@
+import { BallProps } from "./Ball";
+
+interface RandomNumberProps {
+    range?: number;
+    roundingMethod?: "floor" | "ceil" | "round";
+}
+
+export function getRand(
+    range: RandomNumberProps["range"] = 1,
+    roundingMethod?: RandomNumberProps["roundingMethod"]
+) {
+    const randomValue = Math.random() * range;
+    switch (roundingMethod) {
+        case "floor":
+            return Math.floor(randomValue);
+        case "ceil":
+            return Math.ceil(randomValue);
+        case "round":
+            return Math.round(randomValue);
+        default:
+            return randomValue;
+    }
+}
+
 export const createRandomColor = () => {
-    const RGB = [
-        Math.round(Math.random() * 255),
-        Math.round(Math.random() * 255),
-        Math.round(Math.random() * 255),
-    ];
+    const RGB = {
+        R: getRand(255, "round"),
+        G: getRand(255, "round"),
+        B: getRand(255, "round"),
+    };
     return RGB;
 };
 
-// export class Ball {
-//     radius: number;
-//     constructor(radius: number) {
-//         this.radius = radius;
-//     }
-//     getBall(): HTMLDivElement {
-//         const ball = document.createElement("div");
-//         ball.style.width = `${this.radius}px`;
-//         ball.style.height = `${this.radius}px`;
-//         ball.style.borderRadius = "50%";
-//         const RGB = createRandomColor();
-//         ball.style.backgroundColor = `rgba(${RGB[0]},${RGB[1]},${RGB[2]})`;
-//         console.log(ball);
-
-//         return ball;
-//     }
-// }
+export function drawBall(canvas: HTMLCanvasElement, ballProps: BallProps) {
+    const context = canvas.getContext("2d");
+    if (context) {
+        context.beginPath();
+        context.arc(
+            ballProps.centerX,
+            ballProps.centerY,
+            ballProps.radius,
+            0,
+            2 * Math.PI,
+            false
+        );
+        context.fillStyle = ballProps.fillStyle;
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = ballProps.strokeStyle;
+        context.stroke();
+        context.closePath();
+    }
+}

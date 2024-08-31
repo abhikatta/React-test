@@ -1,128 +1,32 @@
-import { createRandomColor } from "./utils";
+import { drawBall } from "./utils";
 import "./style.css";
+import { Ball } from "./Ball";
 
-const MAX_RADIUS = 60;
-const MIN_RADIUS = 20;
-const canvas = document.createElement("canvas");
-canvas.width = screen.width * 0.8;
-canvas.height = screen.height * 0.7;
-const app = document.getElementById("app");
-app?.append(canvas);
+export const MAX_RADIUS = 60;
+export const MIN_RADIUS = 10;
 
-// STEP 1:
-// draw a ball on the canvas and make it move in a random direction and have:
-// velocity, radius, mass, time
+export const canvas = document.createElement("canvas");
 
-const createBall = () => {
-    const radius =
-        Math.ceil(Math.random() * MAX_RADIUS - MIN_RADIUS) + MIN_RADIUS;
-    const centerX =
-        canvas.width / (Math.random() * canvas.width) +
-        Math.random() * canvas.width +
-        radius;
-    const centerY =
-        canvas.height / (Math.random() * canvas.height) +
-        Math.random() * canvas.height +
-        radius;
-    const mass = radius * radius;
-    const velocity = Math.ceil(Math.random() * radius);
-    const dt = Math.floor(Math.random() * radius);
-    const RGB = createRandomColor();
-    const fillStyle = `rgba(${RGB[0]},${RGB[1]},${RGB[2]})`;
-    const strokeStyle = `rgba(${RGB[2]},${RGB[0]},${RGB[1]})`;
-    const vector = { x: Math.random(), y: Math.random() };
-    const direction = Math.ceil(Math.random() * 4);
-    return {
-        radius,
-        direction,
-        centerX,
-        centerY,
-        mass,
-        velocity,
-        dt,
-        fillStyle,
-        strokeStyle,
-        vector,
-    };
+let ball1 = new Ball();
+
+const initialSetup = () => {
+    canvas.width = screen.width * 0.8;
+    canvas.height = screen.height * 0.7;
+
+    const app = document.getElementById("app");
+    app?.append(canvas);
+
+    drawBall(canvas, ball1);
 };
-type BallProps = ReturnType<typeof createBall>;
-let ball1: BallProps = createBall();
-// let ball2: BallProps = createBall();
 
-function drawBall(ballProps: BallProps) {
+const startSimulation = (ball: Ball) => {
+    initialSetup();
     const context = canvas.getContext("2d");
-    if (context) {
-        context.beginPath();
-        context.arc(
-            ballProps.centerX,
-            ballProps.centerY,
-            ballProps.radius,
-            0,
-            2 * Math.PI,
-            false
-        );
-        context.fillStyle = ballProps.fillStyle;
-        context.fill();
-        context.lineWidth = 1;
-        context.strokeStyle = ballProps.strokeStyle;
-        context.stroke();
-        context.closePath();
-    }
-}
-
-drawBall(ball1);
-// drawBall(ball2);
-
-// TODO:
-function detectWallCollision(ball: BallProps) {
-    if (
-        ball.centerX + ball.radius >= canvas.width ||
-        ball.centerX - ball.radius <= 0
-    ) {
-        ball.vector.x *= -1;
-    }
-    if (
-        ball.centerY + ball.radius >= canvas.height ||
-        ball.centerY - ball.radius <= 0
-    ) {
-        ball.vector.y *= -1;
-    }
-}
-
-const moveBall = (ball: BallProps) => {
-    const newBall = { ...ball };
-    switch (ball.direction) {
-        case 1:
-            newBall.centerX = ball.centerX += ball.vector.x * ball.velocity;
-            newBall.centerY = ball1.centerY += ball.vector.y * ball.velocity;
-            break;
-        case 2:
-            newBall.centerX = ball.centerX += ball.vector.x * ball.velocity;
-            newBall.centerY = ball1.centerY -= ball.vector.y * ball.velocity;
-            break;
-        case 3:
-            newBall.centerX = ball.centerX -= ball.vector.x * ball.velocity;
-            newBall.centerY = ball.centerY += ball.vector.y * ball.velocity;
-            break;
-        case 4:
-            newBall.centerX = ball.centerX -= ball.vector.x * ball.velocity;
-            newBall.centerY = ball.centerY -= ball.vector.y * ball.velocity;
-            break;
-
-        default:
-            break;
-    }
-    ball = { ...newBall };
-
-    const context = canvas.getContext("2d");
-    // context?.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall(ball);
-    detectWallCollision(ball);
-    requestAnimationFrame(() => moveBall(ball));
+    context?.clearRect(0, 0, canvas.width, canvas.height);
+    ball.moveBall();
+    ball.detectWallCollision();
+    drawBall(canvas, ball);
+    requestAnimationFrame(() => startSimulation(ball));
 };
 
-const moveBothBalls = async () => {
-    moveBall(ball1);
-    // moveBall(ball2);
-};
-requestAnimationFrame(moveBothBalls);
+requestAnimationFrame(() => startSimulation(ball1));
