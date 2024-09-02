@@ -30,23 +30,26 @@ export const createRandomColor = () => {
     };
 };
 
-export function drawBall(canvas: HTMLCanvasElement, ball: BallProps) {
+export function drawBall(canvas: HTMLCanvasElement, balls: BallProps[]) {
     const context = canvas.getContext("2d");
     if (context) {
-        context.beginPath();
-        context.arc(
-            ball.centerX,
-            ball.centerY,
-            ball.radius,
-            0,
-            2 * Math.PI,
-            false
-        );
-        context.fillStyle = ball.fillStyle;
-        context.fill();
-        context.lineWidth = 1;
-        context.strokeStyle = ball.strokeStyle;
-        context.stroke();
-        context.closePath();
+        for (let index = 0; index < balls.length; index++) {
+            context.beginPath();
+            const ball = balls[index];
+            context.arc(
+                ball.centerX,
+                ball.centerY,
+                ball.radius,
+                0,
+                2 * Math.PI,
+                false
+            );
+            context.fillStyle = ball.fillStyle;
+            context.fill();
+            context.lineWidth = 1;
+            context.strokeStyle = ball.strokeStyle;
+            context.stroke();
+            context.closePath();
+        }
     }
 }
