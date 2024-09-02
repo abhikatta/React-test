@@ -2,7 +2,7 @@ import "./style.css";
 import { Ball } from "./Ball";
 import { drawBall } from "./utils";
 
-const PARTICLE_COUNT = 2;
+const PARTICLE_COUNT = 20;
 export const MAX_RADIUS = 60;
 export const MIN_RADIUS = 10;
 

@@ -46,8 +46,6 @@ export function drawBall(canvas: HTMLCanvasElement, balls: BallProps[]) {
             );
             context.fillStyle = ball.fillStyle;
             context.fill();
-            context.lineWidth = 1;
-            context.strokeStyle = ball.strokeStyle;
             context.stroke();
             context.closePath();
         }

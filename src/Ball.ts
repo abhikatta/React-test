@@ -9,10 +9,9 @@ export interface BallProps {
     velocity: number;
     dt: number;
     RGB: ReturnType<typeof createRandomColor>;
-    fillStyle: string;
-    strokeStyle: string;
     vector: { x: number; y: number };
     direction: number;
+    fillStyle: string;
 }
 
 export class Ball {
@@ -60,19 +59,24 @@ export class Ball {
             this.vector.y *= -1;
         }
     }
+    // TODO:
     detectBallCollision(otherBall: BallProps) {
-        const xParam =
-            (otherBall.centerX - this.centerX) *
-            (otherBall.centerX - this.centerX);
-        const yParam =
-            (otherBall.centerY - this.centerY) *
-            (otherBall.centerY - this.centerY);
+        const [x1, y1, x2, y2] = [
+            this.centerX,
+            this.centerY,
+            otherBall.centerX,
+            otherBall.centerY,
+        ];
 
-        const distance = Math.abs(Math.round(Math.sqrt(xParam + yParam)));
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const distance = Math.sqrt(dx ** 2 + dy ** 2);
+
         if (distance < this.radius + otherBall.radius) {
-            console.log("collided");
+            // console.log("collided");
         }
     }
+
     moveBall() {
         const newCenterX = this.vector.x * this.velocity;
         const newCenterY = this.vector.y * this.velocity;
