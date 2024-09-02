@@ -60,16 +60,19 @@ export class Ball {
             this.vector.y *= -1;
         }
     }
-    // detectBallCollision(otherBall: BallProps) {
-    //     const distance = Math.sqrt(
-    //         (otherBall.centerX - this.centerX) ** 2 +
-    //             (otherBall.centerY - this.centerY) ** 2
-    //     );
-    //     if (distance <= this.radius + otherBall.radius) {
-    //         this.vector.y *= -1;
-    //         this.vector.x *= -1;
-    //     }
-    // }
+    detectBallCollision(otherBall: BallProps) {
+        const xParam =
+            (otherBall.centerX - this.centerX) *
+            (otherBall.centerX - this.centerX);
+        const yParam =
+            (otherBall.centerY - this.centerY) *
+            (otherBall.centerY - this.centerY);
+
+        const distance = Math.abs(Math.round(Math.sqrt(xParam + yParam)));
+        if (distance < this.radius + otherBall.radius) {
+            console.log("collided");
+        }
+    }
     moveBall() {
         const newCenterX = this.vector.x * this.velocity;
         const newCenterY = this.vector.y * this.velocity;

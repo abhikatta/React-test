@@ -2,7 +2,7 @@ import "./style.css";
 import { Ball } from "./Ball";
 import { drawBall } from "./utils";
 
-const PARTICLE_COUNT = 50;
+const PARTICLE_COUNT = 2;
 export const MAX_RADIUS = 60;
 export const MIN_RADIUS = 10;
 
@@ -12,7 +12,7 @@ const CANVAS_WIDTH = screen.width * 0.7;
 export const canvas = document.createElement("canvas");
 
 let balls: Ball[] = [];
-for (let index = 0; index < PARTICLE_COUNT; index++) {
+for (let i = 0; i < PARTICLE_COUNT; i++) {
     balls.push(new Ball());
 }
 
@@ -32,9 +32,12 @@ const startSimulation = (balls: Ball[]) => {
     newCanvas.width = CANVAS_WIDTH;
     newCanvas.height = CANVAS_HEIGHT;
     const start = () => {
-        for (let index = 0; index < balls.length; index++) {
-            const ball = balls[index];
+        for (let i = 0; i < balls.length; i++) {
+            const ball = balls[i];
             ball.moveBall();
+            for (let j = i + 1; j < balls.length; j++) {
+                ball.detectBallCollision(balls[j]);
+            }
             drawBall(newCanvas, [ball]);
         }
         requestAnimationFrame(() => startSimulation([...balls]));
@@ -52,8 +55,8 @@ requestAnimationFrame(() => startSimulation([...balls]));
 //     // console.log(window.innerHeight);
 
 //     const windowEle = e.target as Window;
-//     for (let index = 0; index < balls.length; index++) {
-//         let ball = balls[index];
+//     for (let i = 0; i < balls.length; i++) {
+//         let ball = balls[i];
 //         // default / full size = 1528w x 740h
 //         const per =
 //             (windowEle.innerHeight / window.innerHeight) *
