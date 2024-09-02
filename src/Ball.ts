@@ -38,7 +38,7 @@ export class Ball {
             getRand(canvas.height) +
             this.radius;
         this.mass = getRand(this.radius * 2);
-        this.velocity = getRand(this.radius, "ceil");
+        this.velocity = getRand(this.radius / 3, "ceil");
         this.dt = getRand(this.radius, "floor");
         this.RGB = createRandomColor();
         this.fillStyle = `rgba(${this.RGB.R},${this.RGB.G},${this.RGB.B})`;
@@ -60,26 +60,39 @@ export class Ball {
             this.vector.y *= -1;
         }
     }
+    // detectBallCollision(otherBall: BallProps) {
+    //     const distance = Math.sqrt(
+    //         (otherBall.centerX - this.centerX) ** 2 +
+    //             (otherBall.centerY - this.centerY) ** 2
+    //     );
+    //     if (distance <= this.radius + otherBall.radius) {
+    //         this.vector.y *= -1;
+    //         this.vector.x *= -1;
+    //     }
+    // }
     moveBall() {
+        const newCenterX = this.vector.x * this.velocity;
+        const newCenterY = this.vector.y * this.velocity;
         switch (this.direction) {
             case 1:
-                this.centerX = this.centerX += this.vector.x * this.velocity;
-                this.centerY = this.centerY += this.vector.y * this.velocity;
+                this.centerX += newCenterX;
+                this.centerY += newCenterY;
                 break;
             case 2:
-                this.centerX = this.centerX += this.vector.x * this.velocity;
-                this.centerY = this.centerY -= this.vector.y * this.velocity;
+                this.centerX += newCenterX;
+                this.centerY -= newCenterY;
                 break;
             case 3:
-                this.centerX = this.centerX -= this.vector.x * this.velocity;
-                this.centerY = this.centerY += this.vector.y * this.velocity;
+                this.centerX -= newCenterX;
+                this.centerY += newCenterY;
                 break;
             case 4:
-                this.centerX = this.centerX -= this.vector.x * this.velocity;
-                this.centerY = this.centerY -= this.vector.y * this.velocity;
+                this.centerX -= newCenterX;
+                this.centerY -= newCenterY;
                 break;
             default:
                 break;
         }
+        this.detectWallCollision();
     }
 }

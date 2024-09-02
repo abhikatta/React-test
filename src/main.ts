@@ -1,6 +1,6 @@
-import { drawBall } from "./utils";
 import "./style.css";
 import { Ball } from "./Ball";
+import { drawBall } from "./utils";
 
 export const MAX_RADIUS = 60;
 export const MIN_RADIUS = 10;
@@ -23,10 +23,12 @@ const startSimulation = (ball: Ball) => {
     initialSetup();
     const context = canvas.getContext("2d");
     context?.clearRect(0, 0, canvas.width, canvas.height);
-    ball.moveBall();
-    ball.detectWallCollision();
-    drawBall(canvas, ball);
-    requestAnimationFrame(() => startSimulation(ball));
+    const start = () => {
+        ball.moveBall();
+        drawBall(canvas, ball);
+        requestAnimationFrame(() => startSimulation(ball));
+    };
+    start();
 };
 
 requestAnimationFrame(() => startSimulation(ball1));

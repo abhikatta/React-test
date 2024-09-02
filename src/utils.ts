@@ -23,30 +23,29 @@ export function getRand(
 }
 
 export const createRandomColor = () => {
-    const RGB = {
+    return {
         R: getRand(255, "round"),
         G: getRand(255, "round"),
         B: getRand(255, "round"),
     };
-    return RGB;
 };
 
-export function drawBall(canvas: HTMLCanvasElement, ballProps: BallProps) {
+export function drawBall(canvas: HTMLCanvasElement, ball: BallProps) {
     const context = canvas.getContext("2d");
     if (context) {
         context.beginPath();
         context.arc(
-            ballProps.centerX,
-            ballProps.centerY,
-            ballProps.radius,
+            ball.centerX,
+            ball.centerY,
+            ball.radius,
             0,
             2 * Math.PI,
             false
         );
-        context.fillStyle = ballProps.fillStyle;
+        context.fillStyle = ball.fillStyle;
         context.fill();
         context.lineWidth = 1;
-        context.strokeStyle = ballProps.strokeStyle;
+        context.strokeStyle = ball.strokeStyle;
         context.stroke();
         context.closePath();
     }
